@@ -1,5 +1,18 @@
 @import 'variables';
-@import 'mixins';
+
+@mixin display($display, $justify_content, $align_itens, $flex_direction) {
+    display: $display;
+    justify-content: $justify_content;
+    align-items: $align_itens;
+    flex-direction: $flex_direction;
+}
+
+@mixin title($height) {
+    height: $height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 * {
     margin: 0;
@@ -52,151 +65,187 @@ body {
         gap: 3rem;
         color: $light_grayish_blue;
 
-        button {
-            position: relative;
-            width: 4rem;
-            height: 2.2rem;
-            border-radius: 1.5rem;
-            border: none;
-            background: $linear_gradient;
+        .button {
+            button {
+                cursor: pointer;
+                position: relative;
+                width: 4rem;
+                height: 2.2rem;
+                border-radius: 1.5rem;
+                border: none;
+                background: $linear_gradient;
 
-            &::before {
-                content: '';
+                &::before {
+                    content: '';
+                    position: absolute;
+                    right: .3rem;
+                    top: .2rem;
+                    width: 1.7rem;
+                    height: 1.7rem;
+                    border-radius: 50%;
+                    background-color: $very_light_grayish_blue;
+                    transition: 0.4s;
+                }
+            }
+
+            input {
+                cursor: pointer;
                 position: absolute;
-                right: .3rem;
-                top: .2rem;
-                width: 1.7rem;
-                height: 1.7rem;
-                border-radius: 50%;
-                background-color: $very_light_grayish_blue;
+                right: 57.5rem;
+                z-index: 1;
+                width: 5rem;
+                height: 2.2rem;
+                opacity: 0;
+
+                &:checked+button::before {
+                    transform: translate(-1.7rem);
+                }
+
+                &:hover+button {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
+}
+
+.main_container {
+    height: 40rem;
+    @include display(flex, center, center, none);
+
+    .professional_card {
+        background: $professional_card_bg_color;
+        height: 38rem;
+        width: 30rem;
+        border-radius: .8rem;
+        color: $very_light_grayish_blue;
+
+        .title {
+            @include title(6rem);
+
+            p {
+                height: 2.25rem;
+                display: flex;
+                align-items: flex-end;
+            }
+        }
+
+        .price_container {
+            @include display(flex, center, center, none);
+            gap: 1rem;
+            height: 6rem;
+
+            p {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 5rem;
+            }
+        }
+
+        .description_container {
+            @include display(flex, space-evenly, center, column);
+            height: 18rem;
+
+            hr {
+                height: .1rem;
+                width: 25rem;
+                border-color: $very_light_grayish_blue;
+            }
+
+            p {
+                font-size: $font_size;
+                color: $very_light_grayish_blue;
+            }
+        }
+
+        .button_container {
+            height: 5rem;
+            @include display(flex, center, center, none);
+
+            button {
+                cursor: pointer;
+                height: 3rem;
+                width: 25rem;
+                text-transform: uppercase;
+                background: $very_light_grayish_blue;
+                color: $professional_color_btn;
+                border: none;
+                border-radius: .4rem;
+
+                &:hover {
+                    border: 1px solid $very_light_grayish_blue;
+                    background: transparent;
+                    color: $very_light_grayish_blue;
+                }
             }
         }
     }
 
-    .main_container {   
-        height: 40rem;
-        @include display(flex, center, center, none);
+    // Professional Card
 
-        .professional_card {
-            background: $professional_card_bg_color;
-            height: 38rem;
-            width: 30rem;
-            border-radius: .8rem;
-            color: $very_light_grayish_blue;
+    .basic_and_master_card {
+        box-shadow: .4rem .4rem 1rem .1rem #00000078;
+        background-color: $very_light_grayish_blue;
+        height: 35rem;
+        width: 32rem;
+        border-radius: .8rem;
+        color: $dark_grayish_blue;
 
-            .title {
-                @include title(6rem);
+        .title {
+            @include title(4.5rem);
+        }
 
-                p {
-                    height: 2.25rem;
-                    display: flex;
-                    align-items: flex-end;
-                }
+        .price_container {
+            @include display(flex, center, center, none);
+            height: 6rem;
+            gap: 1rem;
+            height: 6rem;
+
+            p {
+                font-size: 2.5rem;
             }
 
-            .price_container {
-                @include display(flex, center, center, none);
-                gap: 1rem;
-                height: 6rem;
+            h2 {
+                font-size: 5rem;
+            }
+        }
 
-                p {
-                    font-size: 2.5rem;
-                }
+        .description_container {
+            @include display(flex, space-evenly, center, column);
+            height: 18rem;
 
-                h2 {
-                    font-size: 5rem;
-                }
+            hr {
+                height: .1rem;
+                width: 25rem;
+                border-color: $very_light_grayish_blue;
             }
 
-            .description_container {
-                @include display(flex, space-evenly, center, column);
-                height: 18rem;
-
-                hr {
-                    height: .1rem;
-                    width: 25rem;
-                    border-color: $very_light_grayish_blue;
-                }
-
-                p {
-                    font-size: $font_size;
-                    color: $very_light_grayish_blue;
-                }
+            p {
+                font-size: $font_size;
+                color: $grayish_blue;
             }
+        }
 
-            .button_container {
-                height: 5rem;
-                @include display(flex, center, center, none);
-            
-                button {
-                    cursor: pointer;
-                    height: 3rem;
-                    width: 25rem;
-                    text-transform: uppercase;
-                    background: $very_light_grayish_blue;
+        .button_container {
+            height: 5rem;
+            @include display(flex, center, center, none);
+
+            button {
+                cursor: pointer;
+                height: 3rem;
+                width: 25rem;
+                text-transform: uppercase;
+                background: $linear_gradient;
+                color: $very_light_grayish_blue;
+                border: none;
+                border-radius: .4rem;
+
+                &:hover {
+                    border: 1px solid $professional_color_btn;
+                    background: transparent;
                     color: $professional_color_btn;
-                    border: none;
-                    border-radius: .4rem;
-                }
-            }
-        } // Professional Card
-
-        .basic_and_master_card {
-            box-shadow: .4rem .4rem 1rem .1rem #00000078;
-            background-color: $very_light_grayish_blue;
-            height: 35rem;
-            width: 32rem;
-            border-radius: .8rem;
-            color: $dark_grayish_blue;
-            
-            .title {
-                @include title(4.5rem);
-            }
-
-            .price_container {
-                @include display(flex, center, center, none);
-                height: 6rem;
-                gap: 1rem;
-                height: 6rem;
-
-                p {
-                    font-size: 2.5rem;
-                }
-
-                h2 {
-                    font-size: 5rem;
-                }
-            }
-
-            .description_container {
-                @include display(flex, space-evenly, center, column);
-                height: 18rem;
-
-                hr {
-                    height: .1rem;
-                    width: 25rem;
-                    border-color: $very_light_grayish_blue;
-                }
-
-                p {
-                    font-size: $font_size;
-                    color: $grayish_blue;
-                }
-            } 
-
-            .button_container {
-                height: 5rem;
-                @include display(flex, center, center, none);
-
-                button {
-                    cursor: pointer;
-                    height: 3rem;
-                    width: 25rem;
-                    text-transform: uppercase;
-                    background: $linear_gradient;
-                    color: $very_light_grayish_blue;
-                    border: none;
-                    border-radius: .4rem;
                 }
             }
         }
