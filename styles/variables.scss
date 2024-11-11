@@ -15,3 +15,17 @@ $font_size: 15px;
 
 // Fundo do input checkbox
 $linear_gradient: linear-gradient(to right, hsl(236, 72%, 79%), hsl(237, 63%, 64%));
+
+@mixin display($display, $justify_content, $align_itens, $flex_direction) {
+    display: $display;
+    justify-content: $justify_content;
+    align-items: $align_itens;
+    flex-direction: $flex_direction;
+}
+
+@mixin title($height) {
+    height: $height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

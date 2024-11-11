@@ -1,9 +1,9 @@
-let basic_price = document.getElementById('basic_price');
-let professional_price = document.getElementById('professional_price');
-let master_price = document.getElementById('master_price');
-let checkbox = document.getElementById('checkbox');
+const basic_price = document.getElementById('basic_price');
+const professional_price = document.getElementById('professional_price');
+const master_price = document.getElementById('master_price');
+const checkbox = document.getElementById('checkbox');
 
-checkbox.addEventListener('change', function() {
+checkbox.addEventListener('change', () => {
     if (checkbox.checked) {
         basic_price.textContent = "199.99";
         professional_price.textContent = "249.99";

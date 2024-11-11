@@ -1,18 +1,6 @@
 @import 'variables';
 
-@mixin display($display, $justify_content, $align_itens, $flex_direction) {
-    display: $display;
-    justify-content: $justify_content;
-    align-items: $align_itens;
-    flex-direction: $flex_direction;
-}
-
-@mixin title($height) {
-    height: $height;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+// Mixin de Display -> @include display(display, justify-content, align-items, flex-direction);
 
 * {
     margin: 0;
@@ -25,27 +13,25 @@ body {
     max-height: 100vh;
     background-color: $very_light_grayish_blue;
 
-    // Body Before para fazer o background de baixo
     &::before {
         content: '';
         position: absolute;
         top: 0rem;
         right: 0rem;
         z-index: -1;
-        background-image: url(images/bg-top.svg);
+        background-image: url(/images/bg-top.svg);
         background-repeat: no-repeat;
         height: 50rem;
         width: 23.5rem;
     }
 
-    // Body After para fazer o background do topo
     &::after {
         content: '';
         position: absolute;
         bottom: 0rem;
         left: 0rem;
         z-index: -1;
-        background-image: url(images/bg-bottom.svg);
+        background-image: url(/images/bg-bottom.svg);
         background-repeat: no-repeat;
         height: 19rem;
         width: 22rem;
@@ -65,44 +51,36 @@ body {
         gap: 3rem;
         color: $light_grayish_blue;
 
-        .button {
-            button {
-                cursor: pointer;
-                position: relative;
-                width: 4rem;
-                height: 2.2rem;
-                border-radius: 1.5rem;
-                border: none;
-                background: $linear_gradient;
+        button {
+            position: relative;
+            width: 4rem;
+            height: 2.2rem;
+            border-radius: 1.5rem;
+            border: none;
+            background: $linear_gradient;
 
-                &::before {
-                    content: '';
-                    position: absolute;
-                    right: .3rem;
-                    top: .2rem;
-                    width: 1.7rem;
-                    height: 1.7rem;
-                    border-radius: 50%;
-                    background-color: $very_light_grayish_blue;
-                    transition: 0.4s;
-                }
+            .circle {
+                transform: translate(-50%, -50%);
+                position: absolute;
+                left: 25%;
+                top: 50%;
+                width: 1.5rem;
+                height: 1.5rem;
+                background-color: white;
+                border-radius: 50%;
+                transition: left .4s ease;
             }
 
             input {
+                position: relative;
                 cursor: pointer;
-                position: absolute;
-                right: 57.5rem;
-                z-index: 1;
-                width: 5rem;
-                height: 2.2rem;
+                width: 100%;
+                height: 100%;
                 opacity: 0;
+                z-index: 1;
 
-                &:checked+button::before {
-                    transform: translate(-1.7rem);
-                }
-
-                &:hover+button {
-                    opacity: 0.5;
+                &:checked+.circle {
+                    left: 75%;
                 }
             }
         }
@@ -112,11 +90,12 @@ body {
 .main_container {
     height: 40rem;
     @include display(flex, center, center, none);
+    flex-wrap: wrap;
 
     .professional_card {
         background: $professional_card_bg_color;
         height: 38rem;
-        width: 30rem;
+        width: clamp(10rem, 32rem, 80%);
         border-radius: .8rem;
         color: $very_light_grayish_blue;
 
@@ -147,107 +126,105 @@ body {
         .description_container {
             @include display(flex, space-evenly, center, column);
             height: 18rem;
-
-            hr {
-                height: .1rem;
-                width: 25rem;
-                border-color: $very_light_grayish_blue;
-            }
-
-            p {
-                font-size: $font_size;
-                color: $very_light_grayish_blue;
-            }
         }
 
-        .button_container {
-            height: 5rem;
-            @include display(flex, center, center, none);
-
-            button {
-                cursor: pointer;
-                height: 3rem;
-                width: 25rem;
-                text-transform: uppercase;
-                background: $very_light_grayish_blue;
-                color: $professional_color_btn;
-                border: none;
-                border-radius: .4rem;
-
-                &:hover {
-                    border: 1px solid $very_light_grayish_blue;
-                    background: transparent;
-                    color: $very_light_grayish_blue;
-                }
-            }
+        p {
+            font-size: $font_size;
+            color: $very_light_grayish_blue;
         }
     }
 
-    // Professional Card
+    .button_container {
+        height: 5rem;
+        @include display(flex, center, center, none);
 
-    .basic_and_master_card {
-        box-shadow: .4rem .4rem 1rem .1rem #00000078;
-        background-color: $very_light_grayish_blue;
-        height: 35rem;
-        width: 32rem;
-        border-radius: .8rem;
-        color: $dark_grayish_blue;
+        button {
+            cursor: pointer;
+            height: 3rem;
+            width: 80%;
+            text-transform: uppercase;
+            background: $very_light_grayish_blue;
+            color: $professional_color_btn;
+            border: none;
+            border-radius: .4rem;
 
-        .title {
-            @include title(4.5rem);
-        }
-
-        .price_container {
-            @include display(flex, center, center, none);
-            height: 6rem;
-            gap: 1rem;
-            height: 6rem;
-
-            p {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 5rem;
-            }
-        }
-
-        .description_container {
-            @include display(flex, space-evenly, center, column);
-            height: 18rem;
-
-            hr {
-                height: .1rem;
-                width: 25rem;
-                border-color: $very_light_grayish_blue;
-            }
-
-            p {
-                font-size: $font_size;
-                color: $grayish_blue;
-            }
-        }
-
-        .button_container {
-            height: 5rem;
-            @include display(flex, center, center, none);
-
-            button {
-                cursor: pointer;
-                height: 3rem;
-                width: 25rem;
-                text-transform: uppercase;
-                background: $linear_gradient;
+            &:hover {
+                border: 1px solid $very_light_grayish_blue;
+                background: transparent;
                 color: $very_light_grayish_blue;
-                border: none;
-                border-radius: .4rem;
-
-                &:hover {
-                    border: 1px solid $professional_color_btn;
-                    background: transparent;
-                    color: $professional_color_btn;
-                }
             }
         }
+    }
+}
+
+.basic_and_master_card {
+    box-shadow: .4rem .4rem 1rem .1rem #00000078;
+    background-color: $very_light_grayish_blue;
+    height: 35rem;
+    width: clamp(10rem, 32rem, 80%);
+    border-radius: .8rem;
+    color: $dark_grayish_blue;
+
+    .title {
+        @include title(4.5rem);
+    }
+
+    .price_container {
+        @include display(flex, center, center, none);
+        height: 6rem;
+        gap: 1rem;
+        height: 6rem;
+
+        p {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 5rem;
+        }
+    }
+
+    .description_container {
+        @include display(flex, space-evenly, center, column);
+        height: 18rem;
+
+        p {
+            font-size: $font_size;
+            color: $grayish_blue;
+        }
+    }
+
+    .button_container {
+        height: 5rem;
+        @include display(flex, center, center, none);
+
+        button {
+            cursor: pointer;
+            height: 3rem;
+            width: 80%;
+            text-transform: uppercase;
+            background: $linear_gradient;
+            color: $very_light_grayish_blue;
+            border: none;
+            border-radius: .4rem;
+
+            &:hover {
+                border: 1px solid $professional_color_btn;
+                background: transparent;
+                color: $professional_color_btn;
+            }
+        }
+    }
+}
+
+hr {
+    height: .1rem;
+    width: 80%;
+    border-color: $very_light_grayish_blue;
+}
+
+@media (max-width: 560px) {
+    .main_container {
+        gap: 3rem;
     }
 }
